@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  site:
+    image: node:14
+    ports:
+      - 3000:3000
+    working_dir: /home/node/app
+    user: "1000"
+    command: /bin/sh -c "yarn && yarn dev"
+    volumes:
+      - ./:/home/node/app
+    tty: false
