@@ -10,4 +10,7 @@ services:
     command: /bin/sh -c "yarn && yarn dev"
     volumes:
       - ./:/home/node/app
+    environment:
+      DISCORD_CLIENT_ID: ~
+      DISCORD_CLIENT_SECRET: ~
     tty: false
