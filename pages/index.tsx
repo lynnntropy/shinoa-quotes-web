@@ -5,7 +5,6 @@ export interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
   const [session, loading] = useSession();
-  console.log(session);
 
   return (
     <>
