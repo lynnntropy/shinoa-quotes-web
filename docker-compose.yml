@@ -14,3 +14,11 @@ services:
       DISCORD_CLIENT_ID: ~
       DISCORD_CLIENT_SECRET: ~
     tty: false
+
+  apollo_codegen:
+    image: node:14
+    user: node
+    working_dir: /home/node/app
+    command: bash -c "yarn run apollo client:codegen --target=typescript --watch"
+    volumes:
+      - ./:/home/node/app

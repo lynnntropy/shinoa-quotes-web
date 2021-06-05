@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.19",
+    "apollo-server-micro": "^2.25.0",
+    "discord.js": "^12.5.3",
+    "graphql": "^15.5.0",
     "next": "10.2.3",
     "next-auth": "^3.24.0",
     "react": "17.0.2",
@@ -15,6 +19,7 @@
   },
   "devDependencies": {
     "@types/react": "17.0.8",
+    "apollo": "^2.33.4",
     "autoprefixer": "^10.2.6",
     "postcss": "^8.3.0",
     "tailwindcss": "^2.1.2",
