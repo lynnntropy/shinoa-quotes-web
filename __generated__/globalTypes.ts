@@ -7,12 +7,6 @@
 // START Enums and Input Objects
 //==============================================================
 
-export interface QuoteSearchInput {
-  guildId: string;
-  query?: string | null;
-  userId?: string | null;
-}
-
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

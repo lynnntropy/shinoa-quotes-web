@@ -2,17 +2,11 @@ import { Guild } from "discord.js";
 import gql from "graphql-tag";
 import { IFieldResolver } from "graphql-tools";
 import { IResolvers } from "graphql-tools";
-import client from "./client";
-import { GuildQuery, GuildQueryVariables } from "./__generated__/GuildQuery";
-import { GuildsQuery } from "./__generated__/GuildsQuery";
-import {
-  MembersQuery,
-  MembersQueryVariables,
-} from "./__generated__/MembersQuery";
-import { QuotesQuery, QuotesQueryVariables } from "./__generated__/QuotesQuery";
+import shinoaClient from "./shinoaClient";
 
 interface AppResolvers extends IResolvers {
   Query: {
+    // todo move this inside guild?
     quotes: IFieldResolver<
       any,
       any,
@@ -31,7 +25,7 @@ const resolvers: AppResolvers = {
     quotes: async (_, args) => {
       const {
         data: { quotes },
-      } = await client.query<QuotesQuery, QuotesQueryVariables>({
+      } = await shinoaClient.query({
         query: gql`
           query QuotesQuery($searchInput: QuoteSearchInput) {
             quotes(searchInput: $searchInput) {
@@ -76,7 +70,7 @@ const resolvers: AppResolvers = {
     guilds: async () => {
       const {
         data: { guilds },
-      } = await client.query<GuildsQuery>({
+      } = await shinoaClient.query({
         query: gql`
           query GuildsQuery {
             guilds {
@@ -88,13 +82,15 @@ const resolvers: AppResolvers = {
         `,
       });
 
+      // todo filter guilds
+
       return guilds;
     },
 
     guild: async (_, args) => {
       const {
         data: { guild },
-      } = await client.query<GuildQuery, GuildQueryVariables>({
+      } = await shinoaClient.query({
         query: gql`
           query GuildQuery($id: String!) {
             guild(id: $id) {
@@ -109,13 +105,15 @@ const resolvers: AppResolvers = {
         },
       });
 
+      // todo authorize guild
+
       return guild;
     },
   },
 
   Guild: {
     members: async (source, args) => {
-      const { data } = await client.query<MembersQuery, MembersQueryVariables>({
+      const { data } = await shinoaClient.query({
         query: gql`
           query MembersQuery(
             $guildId: String!

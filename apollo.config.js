@@ -1,9 +1,10 @@
 module.exports = {
   client: {
-    excludes: ["src/graphql/schema.graphql"],
+    includes: ["./pages/**/*"],
+    excludes: ["src/graphql/**/*"],
     service: {
-      name: "shinoa",
-      url: "http://host.docker.internal:8080",
+      name: "shinoa-quotes-web",
+      localSchemaFile: "./src/graphql/schema.graphql",
     },
   },
 };
