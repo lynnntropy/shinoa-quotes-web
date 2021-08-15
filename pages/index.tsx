@@ -1,5 +1,5 @@
 import * as React from "react";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import { gql, useQuery } from "@apollo/client";
 import { GuildsQuery } from "./__generated__/GuildsQuery";
 
@@ -30,8 +30,6 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   return (
     <>
-      Signed in as {session.user?.email} <br />
-      <button onClick={() => signOut()}>Sign out</button>
       <div>
         <span>Servers:</span>
         {guilds?.guilds?.map((g) => (
