@@ -22,7 +22,7 @@ const HomePage: React.FC<HomePageProps> = () => {
     if (!sessionLoading && !session) {
       signIn("discord");
     }
-  }, []);
+  }, [sessionLoading, session]);
 
   if (!session) {
     return null;
