@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GuildsQuery
+// GraphQL query operation: guilds
 // ====================================================
 
-export interface GuildsQuery_guilds {
+export interface guilds_guilds {
   __typename: "Guild";
   id: string;
   name: string;
   icon: string | null;
 }
 
-export interface GuildsQuery {
-  guilds: (GuildsQuery_guilds | null)[] | null;
+export interface guilds {
+  guilds: (guilds_guilds | null)[] | null;
 }
