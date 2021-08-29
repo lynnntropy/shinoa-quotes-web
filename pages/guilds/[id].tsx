@@ -1,7 +1,7 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
 import { debounce } from "lodash";
 import { useRouter } from "next/dist/client/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { buildGuildIconUrl } from "../../src/utils/discord";
 import { GuildQuery, GuildQueryVariables } from "./__generated__/GuildQuery";
 import { QuotesQuery, QuotesQueryVariables } from "./__generated__/QuotesQuery";
@@ -81,18 +81,20 @@ const GuildPage: React.FC<GuildPageProps> = () => {
   const [getQuotes, { data: quotesResult, loading: quotesLoading }] =
     useLazyQuery<QuotesQuery, QuotesQueryVariables>(QUOTES_QUERY);
 
-  useEffect(
-    debounce(() => {
-      if (searchQuery.trim().length === 0) {
+  const search = useCallback(
+    debounce((query: string) => {
+      if (query.trim().length === 0) {
         return;
       }
 
       getQuotes({
-        variables: { searchInput: { guildId, query: searchQuery } },
+        variables: { searchInput: { guildId, query } },
       });
     }, 500),
-    [searchQuery]
+    []
   );
+
+  useEffect(() => search(searchQuery), [searchQuery]);
 
   if (guildLoading) {
     return <>Loading...</>;
@@ -104,6 +106,26 @@ const GuildPage: React.FC<GuildPageProps> = () => {
 
   const { guild } = guildResult;
   const { quotes } = quotesResult ?? { quotes: null };
+
+  const SearchResults: React.FC = () => {
+    if (searchQuery.trim().length === 0) {
+      return (
+        <div>Type something into the search field to search for quotes.</div>
+      );
+    }
+
+    return (
+      <div>
+        {quotesLoading && <>Loading quotes...</>}
+        {!quotesLoading &&
+          quotes !== null &&
+          quotes.map((q) => <>{q?.message.content}</>)}
+        {!quotesLoading && (!quotes || quotes?.length === 0) && (
+          <>No quotes found.</>
+        )}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -125,15 +147,7 @@ const GuildPage: React.FC<GuildPageProps> = () => {
           className="w-full h-8 px-3 bg-gray-600 rounded-md"
         />
       </div>
-      <div>
-        {searchQuery.trim().length === 0 && (
-          <>Type something into the search field to search for quotes.</>
-        )}
-        {quotesLoading && <>Loading quotes...</>}
-        {!quotesLoading &&
-          quotes !== null &&
-          quotes.map((q) => <>{q?.message.content}</>)}
-      </div>
+      <SearchResults />
     </>
   );
 };
