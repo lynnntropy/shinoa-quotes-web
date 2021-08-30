@@ -2,21 +2,26 @@ import { Guild } from "discord.js";
 import gql from "graphql-tag";
 import { IFieldResolver } from "graphql-tools";
 import { IResolvers } from "graphql-tools";
+import { Session } from "next-auth";
 import shinoaClient from "./shinoaClient";
+
+interface Context {
+  session: Session;
+}
 
 interface AppResolvers extends IResolvers {
   Query: {
     // todo move this inside guild?
     quotes: IFieldResolver<
       any,
-      any,
+      Context,
       { searchInput: { guildId: string; query?: string; userId?: string } }
     >;
-    guilds: IFieldResolver<any, any>;
-    guild: IFieldResolver<any, any, { id: string }>;
+    guilds: IFieldResolver<any, Context>;
+    guild: IFieldResolver<any, Context, { id: string }>;
   };
   Guild: {
-    members: IFieldResolver<Guild, any, { query: string; limit: number }>;
+    members: IFieldResolver<Guild, Context, { query: string; limit: number }>;
   };
 }
 
@@ -67,7 +72,7 @@ const resolvers: AppResolvers = {
       return quotes;
     },
 
-    guilds: async () => {
+    guilds: async (_, __, { session }) => {
       const {
         data: { guilds },
       } = await shinoaClient.query({
@@ -82,12 +87,14 @@ const resolvers: AppResolvers = {
         `,
       });
 
-      // todo filter guilds
-
-      return guilds;
+      return guilds.filter((g: any) => session.user.guildIds.includes(g.id));
     },
 
-    guild: async (_, args) => {
+    guild: async (_, args, { session }) => {
+      if (!session.user.guildIds.includes(args.id)) {
+        return null;
+      }
+
       const {
         data: { guild },
       } = await shinoaClient.query({
@@ -104,8 +111,6 @@ const resolvers: AppResolvers = {
           ...args,
         },
       });
-
-      // todo authorize guild
 
       return guild;
     },
