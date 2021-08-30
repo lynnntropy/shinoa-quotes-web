@@ -23,8 +23,7 @@ import * as mime from "mime-types";
 import { HiExternalLink } from "react-icons/hi";
 import Input from "../../src/components/forms/Input";
 import RotateLoader from "react-spinners/RotateLoader";
-
-export interface GuildPageProps {}
+import { NextPage } from "next";
 
 const GUILD_QUERY = gql`
   query GuildQuery($id: String!) {
@@ -146,7 +145,7 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
   );
 };
 
-const GuildPage: React.FC<GuildPageProps> = () => {
+const GuildPage: NextPage = () => {
   const router = useRouter();
   const guildId = router.query.id as string;
 

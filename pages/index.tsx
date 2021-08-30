@@ -1,14 +1,12 @@
 import * as React from "react";
-import { signIn, useSession } from "next-auth/client";
 import { gql, useQuery } from "@apollo/client";
-import { GuildsQuery, GuildsQuery_guilds } from "./__generated__/GuildsQuery";
+import { GuildsQuery } from "./__generated__/GuildsQuery";
 import { buildGuildIconUrl } from "../src/utils/discord";
 import Link from "next/link";
 import { guildPage } from "../src/utils/routes";
+import { NextPage } from "next";
 
-export interface HomePageProps {}
-
-const HomePage: React.FC<HomePageProps> = () => {
+const HomePage: NextPage = () => {
   const { data: guilds, loading } = useQuery<GuildsQuery>(gql`
     query GuildsQuery {
       guilds {
