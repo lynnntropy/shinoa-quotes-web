@@ -21,6 +21,7 @@ import {
 } from "./__generated__/QuotesQuery";
 import * as mime from "mime-types";
 import { HiExternalLink } from "react-icons/hi";
+import Input from "../../src/components/forms/Input";
 
 export interface GuildPageProps {}
 
@@ -210,7 +211,7 @@ const GuildPage: React.FC<GuildPageProps> = () => {
 
   return (
     <>
-      <div className="flex items-center gap-4 text-2xl">
+      <div className="flex items-center gap-4 text-2xl font-semibold">
         {guild.icon !== null && (
           <img
             src={buildGuildIconUrl(guild.id, guild.icon)}
@@ -221,11 +222,10 @@ const GuildPage: React.FC<GuildPageProps> = () => {
       </div>
       <hr className="my-4 border-gray-light" />
       <div className="my-4">
-        <input
+        <Input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Enter a query..."
-          className="w-full h-8 px-3 bg-gray-light rounded-md"
         />
       </div>
       <SearchResults />

@@ -14,7 +14,7 @@ const UserCircle: React.FC<UserCircleProps> = () => {
   return (
     <div className="fixed right-8 top-8">
       <Menu>
-        <Menu.Button className="rounded-full hover:bg-opacity-30 focus:outline-none focus-visible:ring-4 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="rounded-full hover:bg-opacity-30 focus:outline-none focus-visible:ring-4 focus-visible:ring-gray-lightest focus-visible:ring-opacity-75">
           <img className="w-12 rounded-full" src={session.user.image} />
         </Menu.Button>
         <Transition
@@ -26,7 +26,7 @@ const UserCircle: React.FC<UserCircleProps> = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-44 mt-2 origin-top-right bg-gray-darkest divide-y divide-gray-darker rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-44 mt-2 origin-top-right bg-gray-darkest divide-y divide-gray-darker rounded-md shadow-lg ring-1 ring-gray-darkest ring-opacity-5 focus:outline-none">
             <Menu.Item>
               {({ active }) => (
                 <button

@@ -11,6 +11,7 @@ module.exports = {
       },
     },
     colors: {
+      ...defaultTheme.colors,
       gray: {
         darkest: "#202225",
         darker: "#292B2F",
@@ -20,16 +21,6 @@ module.exports = {
         lighter: "#72767d",
         lightest: "#dcddde",
       },
-      ...defaultTheme.colors,
-    },
-  },
-  variants: {
-    extend: {
-      ringColor: ["focus-visible"],
-      ringOffsetColor: ["focus-visible"],
-      ringOffsetWidth: ["focus-visible"],
-      ringOpacity: ["focus-visible"],
-      ringWidth: ["focus-visible"],
     },
   },
   plugins: [],

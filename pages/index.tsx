@@ -34,7 +34,7 @@ const HomePage: React.FC<HomePageProps> = () => {
   return (
     <>
       <div>
-        <h2 className="mb-4 mt-0 text-xl">Servers</h2>
+        <h2 className="mb-4 mt-0 text-xl font-semibold">Servers</h2>
         <div className="flex flex-col gap-4">
           {guilds?.guilds?.map((guild) => {
             if (!guild) {
@@ -51,7 +51,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                         className="w-8 rounded-lg"
                       />
                     )}
-                    <div>{guild?.name}</div>
+                    <div className="text-lg font-medium">{guild?.name}</div>
                   </div>
                 </a>
               </Link>
