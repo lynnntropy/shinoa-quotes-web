@@ -207,14 +207,24 @@ const GuildPage: NextPage = () => {
         {!quotesLoading &&
           searchQuery === searchedQuery &&
           quotes !== null &&
-          quotes.map((q) => (
-            <SearchResult message={q?.message as QuotesQuery_quotes_message} />
-          ))}
+          quotes?.length > 0 && (
+            <>
+              <span>
+                Found {quotes.length} quotes matching{" "}
+                <strong className="font-semibold">"{searchedQuery}"</strong>
+              </span>
+              {quotes.map((q) => (
+                <SearchResult
+                  message={q?.message as QuotesQuery_quotes_message}
+                />
+              ))}
+            </>
+          )}
         {!quotesLoading &&
           searchQuery === searchedQuery &&
           (!quotes || quotes?.length === 0) && (
             <div>
-              No quotes found for{" "}
+              No quotes found matching{" "}
               <strong className="font-semibold">"{searchedQuery}"</strong>.
             </div>
           )}
