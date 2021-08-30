@@ -9,6 +9,8 @@ import { guildPage } from "../src/utils/routes";
 export interface HomePageProps {}
 
 const HomePage: React.FC<HomePageProps> = () => {
+  const [session, sessionLoading] = useSession();
+
   const { data: guilds, loading } = useQuery<GuildsQuery>(gql`
     query GuildsQuery {
       guilds {
@@ -18,6 +20,16 @@ const HomePage: React.FC<HomePageProps> = () => {
       }
     }
   `);
+
+  React.useEffect(() => {
+    if (!sessionLoading && !session) {
+      signIn("discord");
+    }
+  }, [sessionLoading, session]);
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <>
