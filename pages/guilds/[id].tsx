@@ -22,6 +22,7 @@ import {
 import * as mime from "mime-types";
 import { HiExternalLink } from "react-icons/hi";
 import Input from "../../src/components/forms/Input";
+import RotateLoader from "react-spinners/RotateLoader";
 
 export interface GuildPageProps {}
 
@@ -196,7 +197,11 @@ const GuildPage: React.FC<GuildPageProps> = () => {
 
     return (
       <div className="flex flex-col gap-4">
-        {quotesLoading && <>Loading quotes...</>}
+        {quotesLoading && (
+          <div className="py-10 flex justify-center transform scale-75">
+            <RotateLoader color="#72767d" />
+          </div>
+        )}
         {!quotesLoading &&
           quotes !== null &&
           quotes.map((q) => (
