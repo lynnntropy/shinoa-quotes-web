@@ -151,6 +151,7 @@ const GuildPage: React.FC<GuildPageProps> = () => {
   const guildId = router.query.id as string;
 
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchedQuery, setSearchedQuery] = useState<string>();
 
   const { data: guildResult, loading: guildLoading } = useQuery<
     GuildQuery,
@@ -171,6 +172,8 @@ const GuildPage: React.FC<GuildPageProps> = () => {
       getQuotes({
         variables: { searchInput: { guildId, query } },
       });
+
+      setSearchedQuery(query);
     }, 500),
     [guildId]
   );
@@ -203,13 +206,19 @@ const GuildPage: React.FC<GuildPageProps> = () => {
           </div>
         )}
         {!quotesLoading &&
+          searchQuery === searchedQuery &&
           quotes !== null &&
           quotes.map((q) => (
             <SearchResult message={q?.message as QuotesQuery_quotes_message} />
           ))}
-        {!quotesLoading && (!quotes || quotes?.length === 0) && (
-          <>No quotes found.</>
-        )}
+        {!quotesLoading &&
+          searchQuery === searchedQuery &&
+          (!quotes || quotes?.length === 0) && (
+            <div>
+              No quotes found for{" "}
+              <strong className="font-semibold">"{searchedQuery}"</strong>.
+            </div>
+          )}
       </div>
     );
   };
