@@ -1,10 +1,26 @@
 import { gql, useLazyQuery, useQuery } from "@apollo/client";
+import {
+  DiscordAttachment,
+  DiscordMessage,
+  DiscordMessages,
+} from "@skyra/discord-components-react";
 import { debounce } from "lodash";
 import { useRouter } from "next/dist/client/router";
 import { useCallback, useEffect, useState } from "react";
-import { buildGuildIconUrl } from "../../src/utils/discord";
+import {
+  buildAvatarUrl,
+  buildGuildIconUrl,
+  buildMessageLink,
+} from "../../src/utils/discord";
 import { GuildQuery, GuildQueryVariables } from "./__generated__/GuildQuery";
-import { QuotesQuery, QuotesQueryVariables } from "./__generated__/QuotesQuery";
+import {
+  QuotesQuery,
+  QuotesQueryVariables,
+  QuotesQuery_quotes_message,
+  QuotesQuery_quotes_message_attachments,
+} from "./__generated__/QuotesQuery";
+import * as mime from "mime-types";
+import { HiExternalLink } from "react-icons/hi";
 
 export interface GuildPageProps {}
 
@@ -65,6 +81,68 @@ const QUOTES_QUERY = gql`
   }
 `;
 
+const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
+  message,
+}) => {
+  const router = useRouter();
+  const guildId = router.query.id as string;
+
+  const imageAttachments =
+    message.attachments?.filter((a) =>
+      (
+        mime.lookup((a as QuotesQuery_quotes_message_attachments).url) ||
+        "unknown"
+      ).startsWith("image/")
+    ) ?? [];
+
+  const videoAttachments =
+    message.attachments?.filter((a) =>
+      (
+        mime.lookup((a as QuotesQuery_quotes_message_attachments).url) ||
+        "unknown"
+      ).startsWith("video/")
+    ) ?? [];
+
+  return (
+    <DiscordMessages>
+      <DiscordMessage
+        author={message.member.nickname ?? message.author.username}
+        avatar={
+          message.author.avatar !== null
+            ? buildAvatarUrl(message.author.id, message.author.avatar)
+            : undefined
+        }
+        timestamp={new Date(message.createdAt)}
+        twentyFour={false}
+      >
+        {message.content}
+        {imageAttachments?.map((a) => (
+          <DiscordAttachment url={a?.url} />
+        ))}
+        {videoAttachments?.length > 0 && (
+          <div className="mt-2">
+            {videoAttachments?.map((a) => (
+              <video src={a?.url} controls />
+            ))}
+          </div>
+        )}
+        <div className="mt-2">
+          <a
+            href={buildMessageLink(guildId, message.channel.id, message.id)}
+            className="block"
+          >
+            <HiExternalLink
+              className="inline relative mr-1"
+              style={{ top: 3 }}
+            />
+            Jump to message in Discord
+          </a>
+        </div>
+      </DiscordMessage>
+    </DiscordMessages>
+  );
+};
+
 const GuildPage: React.FC<GuildPageProps> = () => {
   const router = useRouter();
   const guildId = router.query.id as string;
@@ -91,7 +169,7 @@ const GuildPage: React.FC<GuildPageProps> = () => {
         variables: { searchInput: { guildId, query } },
       });
     }, 500),
-    []
+    [guildId]
   );
 
   useEffect(() => search(searchQuery), [searchQuery]);
@@ -115,11 +193,13 @@ const GuildPage: React.FC<GuildPageProps> = () => {
     }
 
     return (
-      <div>
+      <div className="flex flex-col gap-4">
         {quotesLoading && <>Loading quotes...</>}
         {!quotesLoading &&
           quotes !== null &&
-          quotes.map((q) => <>{q?.message.content}</>)}
+          quotes.map((q) => (
+            <SearchResult message={q?.message as QuotesQuery_quotes_message} />
+          ))}
         {!quotesLoading && (!quotes || quotes?.length === 0) && (
           <>No quotes found.</>
         )}
