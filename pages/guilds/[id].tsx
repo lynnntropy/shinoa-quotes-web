@@ -104,7 +104,7 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
     ) ?? [];
 
   return (
-    <DiscordMessages>
+    <DiscordMessages className="border-none">
       <DiscordMessage
         author={message.member.nickname ?? message.author.username}
         avatar={
@@ -114,6 +114,7 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
         }
         timestamp={new Date(message.createdAt)}
         twentyFour={false}
+        className="bg-gray"
       >
         {message.content}
         {imageAttachments?.map((a) => (
@@ -129,7 +130,7 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
         <div className="mt-2">
           <a
             href={buildMessageLink(guildId, message.channel.id, message.id)}
-            className="block"
+            className="block !text-gray-lightest !font-semibold"
           >
             <HiExternalLink
               className="inline relative mr-1"
@@ -218,13 +219,13 @@ const GuildPage: React.FC<GuildPageProps> = () => {
         )}
         {guildResult?.guild?.name}
       </div>
-      <hr className="my-4 border-gray-600" />
+      <hr className="my-4 border-gray-light" />
       <div className="my-4">
         <input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Enter a query..."
-          className="w-full h-8 px-3 bg-gray-600 rounded-md"
+          className="w-full h-8 px-3 bg-gray-light rounded-md"
         />
       </div>
       <SearchResults />

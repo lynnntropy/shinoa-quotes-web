@@ -26,12 +26,12 @@ const UserCircle: React.FC<UserCircleProps> = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-44 mt-2 origin-top-right bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items className="absolute right-0 w-44 mt-2 origin-top-right bg-gray-darkest divide-y divide-gray-darker rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <Menu.Item>
               {({ active }) => (
                 <button
                   className={`${
-                    active && "bg-gray-700"
+                    active && "bg-gray"
                   } group flex rounded-md items-center w-full px-4 py-3 text-sm text-white`}
                   onClick={() => signOut()}
                 >
