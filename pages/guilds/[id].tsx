@@ -24,6 +24,8 @@ import { HiExternalLink } from "react-icons/hi";
 import Input from "../../src/components/forms/Input";
 import RotateLoader from "react-spinners/RotateLoader";
 import { NextPage } from "next";
+// @ts-ignore
+import ReactMarkdown from "react-markdown/react-markdown.min";
 
 const GUILD_QUERY = gql`
   query GuildQuery($id: String!) {
@@ -117,7 +119,7 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
         twentyFour={false}
         className="bg-gray"
       >
-        {message.content}
+        <ReactMarkdown>{message.content}</ReactMarkdown>
         {imageAttachments?.map((a) => (
           <DiscordAttachment url={a?.url} />
         ))}

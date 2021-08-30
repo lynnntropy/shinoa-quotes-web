@@ -1,4 +1,6 @@
-module.exports = {
+const withTM = require("next-transpile-modules")(["react-markdown"]);
+
+module.exports = withTM({
   future: {
     webpack5: true,
   },
@@ -26,4 +28,4 @@ module.exports = {
 
     return config;
   },
-};
+});
