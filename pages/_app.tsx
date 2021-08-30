@@ -5,11 +5,24 @@ import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import client from "../src/graphql/client";
 import UserCircle from "../src/components/UserCircle";
-import { Provider as AuthProvider } from "next-auth/client";
+import { Provider as AuthProvider, signIn, useSession } from "next-auth/client";
 import Container from "../src/components/Container";
 import { IconContext } from "react-icons/lib";
+import React from "react";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [session, sessionLoading] = useSession();
+
+  React.useEffect(() => {
+    if (!sessionLoading && !session) {
+      signIn("discord");
+    }
+  }, [sessionLoading, session]);
+
+  if (!session) {
+    return null;
+  }
+
   return (
     <AuthProvider session={pageProps.session}>
       <ApolloProvider client={client}>
