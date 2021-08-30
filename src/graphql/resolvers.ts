@@ -67,6 +67,7 @@ const resolvers: AppResolvers = {
           }
         `,
         variables: { ...args },
+        fetchPolicy: "no-cache",
       });
 
       return quotes;

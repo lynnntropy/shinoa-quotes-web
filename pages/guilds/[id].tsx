@@ -162,7 +162,9 @@ const GuildPage: NextPage = () => {
   });
 
   const [getQuotes, { data: quotesResult, loading: quotesLoading }] =
-    useLazyQuery<QuotesQuery, QuotesQueryVariables>(QUOTES_QUERY);
+    useLazyQuery<QuotesQuery, QuotesQueryVariables>(QUOTES_QUERY, {
+      fetchPolicy: "no-cache",
+    });
 
   const search = useCallback(
     debounce((query: string) => {
@@ -192,6 +194,8 @@ const GuildPage: NextPage = () => {
   const { guild } = guildResult;
   const { quotes } = quotesResult ?? { quotes: null };
 
+  console.log(quotes);
+
   const SearchResults: React.FC = () => {
     if (searchQuery.trim().length === 0) {
       return (
@@ -217,6 +221,7 @@ const GuildPage: NextPage = () => {
               </span>
               {quotes.map((q) => (
                 <SearchResult
+                  key={q?.id}
                   message={q?.message as QuotesQuery_quotes_message}
                 />
               ))}
