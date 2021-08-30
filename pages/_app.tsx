@@ -1,5 +1,6 @@
 import "minireset.css/minireset.css";
 import "../styles/globals.css";
+import "../styles/whitney.css";
 import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import client from "../src/graphql/client";

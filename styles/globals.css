@@ -5,3 +5,7 @@
 html {
   @apply bg-gray-dark text-gray-lightest;
 }
+
+body {
+  font-family: "Whitney", Arial, Helvetica, sans-serif;
+}

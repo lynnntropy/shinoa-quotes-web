@@ -1,9 +1,15 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   mode: "jit",
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Whitney", ...defaultTheme.fontFamily.sans],
+      },
+    },
     colors: {
       gray: {
         darkest: "#202225",
@@ -14,6 +20,7 @@ module.exports = {
         lighter: "#72767d",
         lightest: "#dcddde",
       },
+      ...defaultTheme.colors,
     },
   },
   variants: {
