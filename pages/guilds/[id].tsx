@@ -226,6 +226,7 @@ const GuildPage: React.FC<GuildPageProps> = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Enter a query..."
+          autoComplete="off"
         />
       </div>
       <SearchResults />
