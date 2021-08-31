@@ -130,18 +130,20 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
             ))}
           </div>
         )}
-        <div className="mt-2">
-          <a
-            href={buildMessageLink(guildId, message.channel.id, message.id)}
-            className="block !text-gray-lightest !font-semibold"
-          >
-            <HiExternalLink
-              className="inline relative mr-1"
-              style={{ top: 3 }}
-            />
-            Jump to message in Discord
-          </a>
-        </div>
+        {message.id !== "0" && (
+          <div className="mt-2">
+            <a
+              href={buildMessageLink(guildId, message.channel.id, message.id)}
+              className="block !text-gray-lightest !font-semibold"
+            >
+              <HiExternalLink
+                className="inline relative mr-1"
+                style={{ top: 3 }}
+              />
+              Jump to message in Discord
+            </a>
+          </div>
+        )}
       </DiscordMessage>
     </DiscordMessages>
   );
