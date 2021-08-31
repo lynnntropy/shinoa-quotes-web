@@ -12,6 +12,8 @@ spec:
           env:
             - name: SHINOA_API_URL
               value: http://shinoa-service.shinoa.svc.cluster.local
+            - name: NEXTAUTH_URL
+              value: https://shinoa-quotes-web.shinoa.kn.aether.veselin.dev
             - name: DISCORD_CLIENT_ID
               valueFrom:
                 secretKeyRef:
