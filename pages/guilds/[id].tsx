@@ -199,8 +199,6 @@ const GuildPage: NextPage = () => {
   const { guild } = guildResult;
   const { quotes } = quotesResult ?? { quotes: null };
 
-  console.log(quotes);
-
   const SearchResults: React.FC = () => {
     if (searchQuery.trim().length === 0) {
       return (
