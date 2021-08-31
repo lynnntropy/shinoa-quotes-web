@@ -1,4 +1,4 @@
-import { Guild } from "../../pages/api/auth/[...nextauth]";
+import { Guild } from "../../pages/api/auth/[...nextauth].page";
 
 declare module "next-auth" {
   interface Session {

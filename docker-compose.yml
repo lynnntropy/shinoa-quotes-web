@@ -13,6 +13,7 @@ services:
     environment:
       DISCORD_CLIENT_ID: ~
       DISCORD_CLIENT_SECRET: ~
+      SHINOA_API_URL: http://host.docker.internal:8080
     tty: false
 
   apollo_codegen:

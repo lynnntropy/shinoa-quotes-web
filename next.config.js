@@ -5,6 +5,8 @@ module.exports = withTM({
     webpack5: true,
   },
 
+  pageExtensions: ["page.tsx", "page.ts"],
+
   webpack(config, { isServer }) {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,

@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const shinoaClient = new ApolloClient({
-  uri: "http://host.docker.internal:8080", // todo
+  uri: process.env.SHINOA_API_URL,
   cache: new InMemoryCache(),
 });
 

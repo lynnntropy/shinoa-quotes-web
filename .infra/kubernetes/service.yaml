@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: shinoa-quotes-web
+spec:
+  template:
+    spec:
+      containers:
+        - image: omegavesko/shinoa-quotes-web:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: SHINOA_API_URL
+              value: http://shinoa-service.shinoa.svc.cluster.local
