@@ -11,6 +11,7 @@ import {
   buildAvatarUrl,
   buildGuildIconUrl,
   buildMessageLink,
+  messageContentToStandardMarkdown,
 } from "../../src/utils/discord";
 import { GuildQuery, GuildQueryVariables } from "./__generated__/GuildQuery";
 import {
@@ -119,7 +120,9 @@ const SearchResult: React.FC<{ message: QuotesQuery_quotes_message }> = ({
         twentyFour={false}
         className="bg-gray"
       >
-        <ReactMarkdown>{message.content}</ReactMarkdown>
+        <ReactMarkdown>
+          {messageContentToStandardMarkdown(message.content)}
+        </ReactMarkdown>
         {imageAttachments?.map((a) => (
           <DiscordAttachment url={a?.url} />
         ))}

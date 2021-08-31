@@ -13,3 +13,7 @@ export const buildMessageLink = (
   channelId: string,
   messageId: string
 ) => `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
+
+export const messageContentToStandardMarkdown = (content: string) => {
+  return content.replaceAll("\n", "  \n");
+};
