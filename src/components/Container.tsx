@@ -16,7 +16,7 @@ const Container: React.FC<ContainerProps> = ({ children }) => {
         </Link>
       </div>
 
-      <main className="max-w-xl mx-auto my-8 px-8 py-7 bg-gray rounded-lg shadow-md">
+      <main className="max-w-xl mx-auto my-8 px-8 py-7 md:bg-gray md:rounded-lg md:shadow-md">
         {children}
       </main>
     </>

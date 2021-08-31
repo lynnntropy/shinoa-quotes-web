@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  @apply bg-gray-dark text-gray-lightest;
+  @apply bg-gray text-gray-lightest md:bg-gray-dark;
 }
 
 body {
