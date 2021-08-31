@@ -12,3 +12,13 @@ spec:
           env:
             - name: SHINOA_API_URL
               value: http://shinoa-service.shinoa.svc.cluster.local
+            - name: DISCORD_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: shinoa-quotes-web-client
+                  key: client_id
+            - name: DISCORD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: shinoa-quotes-web-client
+                  key: client_secret
